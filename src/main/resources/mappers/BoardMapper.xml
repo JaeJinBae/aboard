@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antweb.mappers.BoardMapper">
+
+	<select id="selectAll" resultType="BoardVO">
+		select * from board order by bno desc
+	</select>
+	
+	<select id="selectOne" resultType="BoardVO">
+		select * from board where bno=#{bno}
+	</select>
+	
+	<insert id="insert">
+		insert into board (btitle, bcontent) values(#{btitle},#{bcontent})
+	</insert>
+	
+	<update id="update">
+		update board set btitle=#{btitle}, bcontent=#{bcontent} where bno=#{bno}
+	</update>
+	
+	<update id="updateCnt">
+		update board set bcount=(bcount+1) where bno=#{bno}
+	</update>
+	
+	<delete id="delete">
+		delete from board where bno=#{bno}
+	</delete>
+</mapper>
