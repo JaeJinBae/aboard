@@ -8,10 +8,12 @@
 <title>Insert title here</title>
 <style type="text/css">
 	#btn{
-		width:100px;
-		position:fixed;
+		width:20%;
+		float:right;
+		text-align: right;
+		/* position:fixed;
 		top:150px;
-		right:90px;
+		right:90px; */
 	}
 	#btnBack{
 		width:95px;
@@ -25,11 +27,22 @@
 		margin:0 auto;
 		margin-top:100px;
 		border:1px solid black;
+		clear:both;
 	}
 	#container #content{
 		width:100%;
 		clear:both;
 		border:1px solid red;
+	}
+	#replyDiv{
+		width:70%;
+		margin:0 auto;
+		margin-top:30px;
+		border:1px solid black;
+	}
+	#replyContent{
+		width:90%;
+		margin:0 auto;
 	}
 </style>
 </head>
@@ -47,6 +60,12 @@
 		<div id="content">
 			${item.bcontent}
 		</div>
+		
+	</div>
+	<div id="replyDiv">
+		<p>댓글</p>
+		<button id="btnReplySave">저장</button><br>
+		<input id="replyContent" type="text" placeholder="댓글 내용을 입력하세요." name="replyContent">
 		
 	</div>
 </body>
