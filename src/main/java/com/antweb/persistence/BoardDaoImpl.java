@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.antweb.domain.BoardVO;
+import com.antweb.domain.SearchCriteria;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -46,6 +47,18 @@ public class BoardDaoImpl implements BoardDao {
 	public void delete(int bno) {
 		session.delete(namespace+".delete",bno);
 	}
+
+	@Override
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+		return session.selectList(namespace+".listSearch",cri);
+	}
+	
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace+".listSearchCount",cri);
+	}
+
+	
 
 
 	

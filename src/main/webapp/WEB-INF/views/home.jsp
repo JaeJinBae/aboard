@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <style type="text/css">
 	#container{
 		width:70%;
@@ -48,9 +51,33 @@
 		text-decoration: none;
 	}
 </style>
+<script type="text/javascript">
+	/* $.noConflict();
+	
+	var j=jQuery; */
+	$(function(){
+		$("#searchBtn").click(function(){
+			var searchType=$("select[name='searchType']").val();
+			var keyword=$("input[name='keyword']").val();
+			location.href="?${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword;
+		});
+	});
+
+
+</script>
 </head>
 <body>
 	<div id="container">
+		<div class="box-body">
+			<select name="searchType">
+				<option value="n">선택해주세요.</option>
+				<option value="b" ${cri.searchType=='t'?'selected':''}>번호</option>
+				<option value="t" ${cri.searchType=='c'?'selected':''}>제목</option>
+				<option value="r" ${cri.searchType=='w'?'selected':''}>등록일</option>
+			</select> 
+			<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
+			<button id="searchBtn">Search</button>
+		</div>
 		<div id="btnRegister">
 			<a href="register"><input type="button" value="글쓰기"></a>
 		</div>
@@ -72,6 +99,21 @@
 				</c:forEach>
 				
 			</table>
+		</div>
+		<div id="pageDiv">
+			<ul class="pagination">
+				<c:if test="${pageMaker.prev}">
+					<li><a href="?${pageMaker.makeSearch(pageMaker.startPage-1) }">&laquo;</a></li>
+				</c:if>
+				
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+					<li ${pageMaker.cri.page == idx? 'class=active':''}><a href="${pageMaker.makeSearch(idx)}">${idx}</a></li>
+				</c:forEach>
+				
+				<c:if test="${pageMaker.next}">
+					<li><a href="?${pageMaker.makeSearch(pageMaker.endPage+1)}">&raquo;</a></li>
+				</c:if>
+			</ul>
 		</div>
 	</div>
 </body>

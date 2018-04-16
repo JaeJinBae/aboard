@@ -2,7 +2,6 @@ package com.antweb.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -19,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.antweb.domain.BoardVO;
+import com.antweb.domain.PageMaker;
+import com.antweb.domain.SearchCriteria;
 import com.antweb.service.BoardService;
 
 @Controller
@@ -37,12 +39,18 @@ public class BoardController {
 	private BoardService service;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		logger.info("home입니다.");
-
-		List<BoardVO> list = service.selectAll();
+		
+		List<BoardVO> list = service.listSearch(cri);
+		
+		PageMaker pageMaker=new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.makeSearch(cri.getPage());
+		pageMaker.setTotalCount(service.listSearchCount(cri));
+		
 		model.addAttribute("list", list);
-
+		model.addAttribute("pageMaker",pageMaker);
 		return "home";
 	}
 
@@ -71,41 +79,6 @@ public class BoardController {
 		return "redirect:/";
 	}
 
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping("imgUpload") public Map<String,Object>
-	 * imgaeUpload(HttpServletRequest req, @RequestParam MultipartFile upload,
-	 * Model model) throws Exception{ logger.info("image upload!!!!!");
-	 * 
-	 * //http body OutputStream out=null; //PrintWriter printWriter=null;//웹페이지에
-	 * html 넣음
-	 * 
-	 * 
-	 * Map<String, Object> map=new HashMap<String, Object>();
-	 * 
-	 * //업로드한 파일 이름 String fileName=upload.getOriginalFilename(); //바이트 배열로 변환
-	 * byte[] bytes=upload.getBytes(); //이미지를 업로드할 디렉토리(배포경로로 설정) String
-	 * innerUploadPath="resources/upload/"; String uploadPath=
-	 * (req.getSession().getServletContext().getRealPath("/"))+ innerUploadPath;
-	 * logger.info(uploadPath);
-	 * 
-	 * out=new FileOutputStream(new File(uploadPath+fileName));//서버에 파일 저장 //서버에
-	 * 저장됨 out.write(bytes);
-	 * 
-	 * //클라이언트에 업로드 결과를 표시 String callback =
-	 * req.getParameter("CKEditorFuncNum");
-	 * 
-	 * String fileUrl=innerUploadPath+fileName;
-	 * 
-	 * System.out.println(fileUrl);
-	 * 
-	 * map.put("uploaded", 1); map.put("fileName", fileName); map.put("url",
-	 * fileUrl);
-	 * 
-	 * return map; }
-	 */
-
 	@ResponseBody
 	@RequestMapping("imgUpload")
 	public Map<String, Object> imgaeUpload(HttpServletRequest req, @RequestParam MultipartFile upload, Model model)
@@ -121,10 +94,10 @@ public class BoardController {
 		String fileName = upload.getOriginalFilename();
 
 		// ==================================================================================================================================
-		String serverIp = "112.175.85.200";
-		int serverPort = 21;
-		String user = "test7425";
-		String password = "qowowls12!";
+		String serverIp = "112.175.85.200";//호스트 주소(ex. http://아이디.iud.cdn3.cafe24.com)
+		int serverPort = 21;//포트번호
+		String user = "test7425";//ftp아이디
+		String password = "qowowls12!";//ftp비밀번호
 
 		FileInputStream fis = null;
 		FTPClient ftpClient = new FTPClient();
@@ -142,7 +115,7 @@ public class BoardController {
 
 			ftpClient.setSoTimeout(1000 * 20);
 			ftpClient.login(user, password);
-			ftpClient.changeWorkingDirectory("www");
+			ftpClient.changeWorkingDirectory("www");//디렉토리변경(저장할 폴더로 이동)
 			ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 			ftpClient.enterLocalActiveMode();
 

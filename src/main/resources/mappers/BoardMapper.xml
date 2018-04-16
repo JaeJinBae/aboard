@@ -27,4 +27,24 @@
 	<delete id="delete">
 		delete from board where bno=#{bno}
 	</delete>
+	
+	<select id="listSearch" resultType="BoardVO">
+		select * from board <include refid="search"></include> order by bno desc, regdate desc limit #{pageStart},#{perPageNum}  
+	</select>
+	
+	<sql id="search">
+		<if test="searchType=='b'.toString()">
+			where bno like concat('%',#{keyword},'%')
+		</if>
+		<if test="searchType=='t'.toString()">
+			where btitle like concat('%',#{keyword},'%') 
+		</if>
+		<if test="searchType=='r'.toString()">
+			where regdate like concat('%',#{keyword},'%')
+		</if>
+	</sql>
+	
+	<select id="listSearchCount" resultType="int">
+		select count(bno) from board <include refid="search"></include>
+	</select>
 </mapper>

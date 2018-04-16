@@ -3,6 +3,7 @@ package com.antweb.persistence;
 import java.util.List;
 
 import com.antweb.domain.BoardVO;
+import com.antweb.domain.SearchCriteria;
 
 public interface BoardDao {
 	public List<BoardVO> selectAll();
@@ -11,4 +12,6 @@ public interface BoardDao {
 	public void update(BoardVO vo);
 	public void updateCnt(int bno);
 	public void delete(int bno);
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
+	public int listSearchCount(SearchCriteria cri) throws Exception;
 }

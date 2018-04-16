@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.antweb.domain.BoardVO;
+import com.antweb.domain.SearchCriteria;
 import com.antweb.persistence.BoardDao;
 
 @Service
@@ -39,6 +40,18 @@ public class BoardServiceImpl implements BoardService{
 	public void delete(int bno) {
 		dao.delete(bno);
 	}
+
+	@Override
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+		return dao.listSearch(cri);
+	}
+	
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return dao.listSearchCount(cri);
+	}
+
+	
 	
 	
 }
