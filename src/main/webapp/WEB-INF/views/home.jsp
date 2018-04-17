@@ -79,20 +79,37 @@
 			<button id="searchBtn">Search</button>
 		</div>
 		<div id="btnRegister">
+			<%-- <c:if test="${ }"> --%>
+			<a href="#"><img style="width:80px;" src="${pageContext.request.contextPath}/resources/images/person.png" alt="로그인"><br>로그인</a><br>
 			<a href="register"><input type="button" value="글쓰기"></a>
 		</div>
 		<div id="bList">
+			<div id="insertPW">
+				<table>
+					<tr>
+						<th>비밀번호 입력:</th>
+					</tr>
+				</table>		
+			</div>
 			<table id="tbl">
 				<tr>
 					<th id="bno">번호</th>
 					<th id="title">제목</th>
+					<th id="writer">작성자</th>
 					<th id="reg">등록일</th>
 					<th id="cnt">조회수</th>
 				</tr>
 				<c:forEach var="item" items="${list}">
-					<tr>
+					<tr>	
 						<td><a href="#">${item.bno}</a></td>
-						<td><a href="read/${item.bno}">${item.btitle}</a></td>
+						<td>
+							<input type="hidden" class="pwtype" value="${item.pwtype}">
+							<input type="hidden" class="pw" value="${item.pw}">
+							<a href="read/${item.bno}/1">${item.btitle}</a>
+							&nbsp;<b>[${item.replycnt}]</b>&nbsp;
+							<c:if test="${item.pwtype =='o'}"><img width='18' src="${pageContext.request.contextPath}/resources/images/pw.png"></c:if>
+						</td>
+						<td>${item.bwriter}</td>
 						<td><fmt:formatDate type="date" value="${item.regdate}"/></td>
 						<td>${item.bcount }</td>
 					</tr>

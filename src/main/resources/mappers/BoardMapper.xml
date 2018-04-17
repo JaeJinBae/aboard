@@ -13,16 +13,21 @@
 	</select>
 	
 	<insert id="insert">
-		insert into board (btitle, bcontent) values(#{btitle},#{bcontent})
+		insert into board (bwriter, btitle, bcontent, pwtype, pw) values(#{bwriter},#{btitle},#{bcontent},#{pwtype}, #{pw})
 	</insert>
 	
 	<update id="update">
-		update board set btitle=#{btitle}, bcontent=#{bcontent} where bno=#{bno}
+		update board set bwriter=#{bwriter}, btitle=#{btitle}, bcontent=#{bcontent} where bno=#{bno}
 	</update>
 	
 	<update id="updateCnt">
 		update board set bcount=(bcount+1) where bno=#{bno}
 	</update>
+	
+	<update id="updateReplyCnt">
+		update board set replycnt = replycnt + #{amount} where bno = #{bno}
+	</update>
+	
 	
 	<delete id="delete">
 		delete from board where bno=#{bno}

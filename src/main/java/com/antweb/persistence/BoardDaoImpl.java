@@ -1,5 +1,6 @@
 package com.antweb.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -56,6 +57,15 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return session.selectOne(namespace+".listSearchCount",cri);
+	}
+
+	@Override
+	public void updateReplyCnt(int bno, int amount) throws Exception {
+		HashMap<String, Object> map=new HashMap<>();
+		map.put("bno", bno);
+		map.put("amount", amount);
+		
+		session.update(namespace+".updateReplyCnt",map);
 	}
 
 	

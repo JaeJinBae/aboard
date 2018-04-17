@@ -27,40 +27,58 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.antweb.domain.BoardVO;
+import com.antweb.domain.Criteria;
 import com.antweb.domain.PageMaker;
+import com.antweb.domain.ReplyVO;
 import com.antweb.domain.SearchCriteria;
 import com.antweb.service.BoardService;
+import com.antweb.service.ReplyService;
 
 @Controller
 public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	@Autowired
-	private BoardService service;
+	private BoardService bservice;
+	
+	@Autowired
+	private ReplyService rservice;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		logger.info("home입니다.");
 		
-		List<BoardVO> list = service.listSearch(cri);
+		List<BoardVO> list = bservice.listSearch(cri);
 		
 		PageMaker pageMaker=new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.makeSearch(cri.getPage());
-		pageMaker.setTotalCount(service.listSearchCount(cri));
+		pageMaker.setTotalCount(bservice.listSearchCount(cri));
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker",pageMaker);
 		return "home";
 	}
 
-	@RequestMapping(value = "/read/{bno}")
-	public String read(@PathVariable("bno") int bno, Model model) {
+	@RequestMapping(value = "/read/{bno}/{page}")
+	public String read(@PathVariable("bno") int bno, @PathVariable("page") int page, Model model) throws Exception {
 		logger.info("read");
 
-		BoardVO vo = service.selectOne(bno);
+		BoardVO vo = bservice.selectOne(bno);
+		
+		Criteria cri=new Criteria();
+		cri.setPage(page);
+		List<ReplyVO> list=rservice.listReplyPage(bno, cri);
+		
+		
+		PageMaker pageMaker=new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(rservice.count(bno));
+		
 		model.addAttribute("item", vo);
-
+		model.addAttribute("list",list);
+		model.addAttribute("pageMaker",pageMaker);
+		
 		return "readForm";
 	}
 
@@ -74,7 +92,7 @@ public class BoardController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerPost(BoardVO vo) {
 		logger.info("registerPost");
-		service.insert(vo);
+		bservice.insert(vo);
 
 		return "redirect:/";
 	}
@@ -144,16 +162,18 @@ public class BoardController {
 	}
 
 	@RequestMapping("/delete/{bno}")
-	public String delete(@PathVariable("bno") int bno) {
+	public String delete(@PathVariable("bno") int bno) throws Exception {
 		logger.info("delete");
-		service.delete(bno);
-
+		
+		rservice.deleteByBno(bno);
+		bservice.delete(bno);
+		
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/update/{bno}", method=RequestMethod.GET)
 	public String updateGet(@PathVariable("bno") int bno, Model model){
-		BoardVO vo=service.selectOne(bno);
+		BoardVO vo=bservice.selectOne(bno);
 		model.addAttribute("obj",vo);
 		
 		return "updateForm";
@@ -161,7 +181,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public String updatePost(BoardVO vo){
-		service.update(vo);
+		bservice.update(vo);
 		
 		return "redirect:/";
 	}
