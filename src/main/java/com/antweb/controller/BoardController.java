@@ -44,7 +44,7 @@ public class BoardController {
 	@Autowired
 	private ReplyService rservice;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/board", method = RequestMethod.GET)
 	public String home(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		logger.info("home입니다.");
 		
@@ -65,7 +65,7 @@ public class BoardController {
 		logger.info("read");
 
 		BoardVO vo = bservice.selectOne(bno);
-		
+		bservice.updateCnt(bno);
 		Criteria cri=new Criteria();
 		cri.setPage(page);
 		List<ReplyVO> list=rservice.listReplyPage(bno, cri);
@@ -81,6 +81,22 @@ public class BoardController {
 		
 		return "readForm";
 	}
+	
+	@RequestMapping(value="/pwcheck/{bno}", method=RequestMethod.GET)
+	public String pwcheckGet(@PathVariable("bno") int bno, Model model){
+		logger.info("pwcheck Get");
+		
+		BoardVO vo=bservice.selectOne(bno);
+		if(vo.getPwtype().equals("x")){
+			logger.info(vo.getPwtype());
+			/*model.addAttribute("bno",bno);
+			model.addAttribute("page",1);*/
+			return "redirect:/read/"+bno+"/"+1;
+		}
+		
+		model.addAttribute("vo",vo);
+		return "pwcheck";
+	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerGet() {
@@ -94,7 +110,7 @@ public class BoardController {
 		logger.info("registerPost");
 		bservice.insert(vo);
 
-		return "redirect:/";
+		return "redirect:/board";
 	}
 
 	@ResponseBody

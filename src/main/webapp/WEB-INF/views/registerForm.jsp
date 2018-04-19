@@ -35,7 +35,9 @@
 	
 	var j=jQuery;
 	j(function(){
-		
+		/* j("#form1").submit(function(event){
+			
+		}); */
 	});
 </script>
 </head>
@@ -55,7 +57,7 @@
 				<span>제목:</span>
 				<input id="title" type="text" name="btitle">
 				<input class="btn" type="submit" value="저장">
-				<a href="${pageContext.request.contextPath}"><button type="button" class="btn">뒤로가기</button></a>
+				<a href="${pageContext.request.contextPath}/board"><button type="button" class="btn">뒤로가기</button></a>
 			</div>
 			
 			<textarea id="editor1" name="bcontent">

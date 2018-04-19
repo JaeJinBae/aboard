@@ -16,6 +16,7 @@
 		width:20%;
 		float:right;
 		text-align: right;
+		margin-top:200px;
 	}
 	#btnBack{
 		width:95px;
@@ -25,31 +26,34 @@
 		width:95px;
 	}
 	#container{
-		width:80%;
+		width:70%;
 		margin:0 auto;
 		margin-top:100px;
-		border:1px solid black;
+		/* border:1px solid black; */
 		clear:both;
 	}
 	#container #content{
 		width:100%;
 		border:1px solid red;
+		padding:10px;
 	}
 	#reply{
-		width:90%;
+		width:70%;
 		margin:0 auto;
 		margin-top:100px;
-		border:1px solid black;
+		/* border:1px solid black; */
 		padding:10px;
 	}
 	#replyInsertDiv{
 		width:70%;
 		margin:0 auto;
 		margin-bottom:50px;
-		border:1px solid black;
+		padding:10px;
+		border:1px solid gray;
+		border-radius: 14px;
 	}
 	#replyContent{
-		width:90%;
+		width:60%;
 		margin:0 auto;
 	}
 	#replyList{
@@ -57,18 +61,26 @@
 		margin:0 auto;
 	}
 	#replyList #replyListUl{
-		width:100%;
+		width:70%;
+		margin:0 auto;
 		list-style: none;
+		/* border:1px solid blue; */
 	}
 	#replyList #replyListUl li{
-		width:100%;
-		border:1px solid black; 
+		width:70%;
+		border:1px solid black;
+		border-radius:15px;
+		padding:10px;
+		margin-bottom:10px;
 	}
 	#page{
 		width:60%;
 		margin:0 auto;
 	}
 	#page #pagination{
+		width:90%;
+		margin:0 auto;
+		text-align:center;
 		list-style: none;
 	}
 	#page #pagination li{
@@ -94,7 +106,8 @@
 				dataType:"text",
 				data:JSON.stringify(sendData),//json객체를 json string 으로 변경해줌
 				success:function(result){
-					//console.log(result);
+					$("#replyer").val("");
+					$("#replyContent").val("");
 					getPage(1);
 				}
 			})
@@ -142,19 +155,23 @@
 </script>
 </head>
 <body>
+	<jsp:include page="include/header.jsp"></jsp:include>
 	<input type="hidden" value="${item.bno}">
 	<div id="btn">
 		<div id="btnBack">
-			<a href="${pageContext.request.contextPath}"><button>목록 보기</button></a>
+			<a href="${pageContext.request.contextPath}/board"><button>목록 보기</button></a>
 		</div>
 		<div id="btnManager">
-			<a href="${pageContext.request.contextPath}/update/${item.bno}"><button>수정</button></a>
-			<a href="${pageContext.request.contextPath}/delete/${item.bno}"><button>삭제</button></a>
+			<c:if test="${item.pwtype=='o'}">
+				<a href="${pageContext.request.contextPath}/update/${item.bno}"><button>수정</button></a>
+				<a href="${pageContext.request.contextPath}/delete/${item.bno}"><button>삭제</button></a>
+			</c:if>
+			
 		</div>
 	</div>
 	<div id="container">
 		<div id="content">
-			<p>작성자: ${item.bwriter}</p>
+			<p>작성자: ${item.bwriter}</p><br>
 			${item.bcontent}
 		</div>
 	</div>
@@ -164,8 +181,8 @@
 		<!-- 댓글 입력 -->
 		<div id="replyInsertDiv">
 			<p>댓글</p>
-			<a href="1"><button id="btnReplySave">저장</button></a><br>
-			<input id="replyer" type="text" placeholder="작성자 이름을 입력하세요." name="replyer">
+			<button id="btnReplySave">저장</button><br>
+			<input id="replyer" type="text" placeholder="작성자 이름을 입력하세요." name="replyer"><br>
 			<input id="replyContent" type="text" placeholder="댓글 내용을 입력하세요." name="replyContent">
 		</div>
 		

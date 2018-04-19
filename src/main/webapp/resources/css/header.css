@@ -1,0 +1,274 @@
+@CHARSET "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+@media screen and ( min-width : 1380px ){
+	
+	#tabletLayout{
+		display: none;
+	}
+	#headerWrap{
+		width:100%;
+		border-bottom:2px solid green;
+		z-index: 1;
+		position:fixed;
+		top:0;
+		background: white;
+	}
+	#headerWrap #headerMenu1{
+		width:85%;
+		height:40px;
+		margin:0 auto;
+	}
+	ul{
+		list-style:none;
+	}
+	a{
+		text-decoration: none;
+		color:black;
+	}
+	.nav{
+		width:720px;
+		height:40px;
+		line-height: 40px;
+		text-align: right;
+		float:right;
+	}
+	.dropdown_menu{
+		display:none; 
+	}
+	.nav>li{
+		width:130px;
+		display:inline;
+		float:left;
+		text-align: center;
+	}
+	.nav>li.icon{
+		width:20px;
+		text-align: center;
+	}
+	.nav > li:LAST-CHILD{
+		padding-left:15px;
+	}
+	.nav li>a{
+		font-size: 13.5px;
+	}
+	.nav li:hover>a{
+		color:green;
+	}
+	.nav>li>.dropdown_menu{
+		width:130px;
+		background: white;
+	} 
+	.nav>li:hover>.dropdown_menu{
+		display:block;
+		position:relative;
+		z-index: 9;
+	}
+	.nav li a img{
+		width:16px;
+	}
+	#headerWrap #headerMenu2{
+		width:80%;
+		height:40px;
+		margin:0 auto;
+		padding-top:10px;
+		z-index: 6;
+	}
+	 #headerMenu2>a>img{
+	 	width:140px;
+	 }
+	 #headerWrap #headerMenu2 #mainNav{
+		width:960px;
+		line-height:30px;
+		float:right;
+		text-align: right;
+		z-index: 7;
+	 }
+	 #headerWrap #headerMenu2 #mainNav>li{
+		width:135px;
+		height:50px;
+		display: inline;/* inline에는 width안먹어서 float줘야 한다. */
+		float:left;
+		text-align:center;
+		position: relative;
+		z-index: 8; 
+	 }
+	 #headerWrap #headerMenu2 #mainNav>li>a{
+		 width:100%;
+		 font-size:14px;
+	 }
+	 #headerWrap #headerMenu2 #mainNav a:hover{
+	 	color:green;
+	 }
+	 #headerWrap #headerMenu2 #mainNav .dropdown_menu{
+	 	width:100%;
+	 	margin:0 auto;
+	 	position:absolute;
+		top:50px;
+		background:white;
+		z-index: 9;
+	 }
+	#headerWrap #headerMenu2 #mainNav>li:hover>.dropdown_menu{
+		display:block;
+	}
+	/* 퀵메뉴 */
+	#quickMenu{
+		width:115px;
+		position:fixed;
+		top:105px;
+		right:5px;
+		z-index:8;
+	}
+	#quickMenu .qmenu{
+		width:110px;
+		height:38px;
+		border-radius:4px;
+		margin:0 auto;
+		text-align: center;
+		margin-bottom:5px;
+		background: #7F6C63;
+		opacity: 0.9;
+	}
+	#quickMenu .qmenu a{
+		line-height: 38px;
+		color:white;
+		font-size: 15px;
+	}
+}
+
+@media screen and (min-width:767px) {
+	a{
+		text-decoration: none;
+		color:black;
+	}
+	#headerWrap{
+		display: none;
+	}
+	#tabletLayout{
+		display:block;
+		width:100%;
+		height:52px;
+		float:left;
+		margin:0 auto;
+		border-bottom:2px solid green;
+		text-align: center;
+		position:fixed;
+		top:0;
+		background: white;
+		z-index: 9;
+	}
+	#tabletLayout #mainLogo{
+		width:120px;
+		margin-left:50px;
+		margin-top:10px;
+	}
+	ul>li{
+		list-style: none;
+	}
+	/* 사이드메뉴바 */
+	.sidenav {
+	    height: 100%;
+	    width: 250px;
+	    position: fixed;
+	    z-index: 9;
+	    top: 0;
+	    right: -250px;
+	    background-color: #ffffff;
+	    overflow-x: hidden;
+	    transition: 0.5s;
+	    margin-top:5px;
+	    border-left:1px solid black;
+	}
+	#btnMenu{
+		width:50px;
+		float:right;
+		text-align:right;
+		margin-right:15px;
+	}
+	.sidenav #sidenav_menu a:hover {
+	    color: green;
+	    font-weight:bold;
+	}
+	#navbarTop{
+		width:100%;
+		height:50px;
+		margin:0 auto;
+		background: #2A8B61;
+		padding-left:10px;
+	}
+	#navbarTop>li{
+		width:28%;
+		margin:0 auto;
+		float:left;
+		text-align:center;
+		display:inline;
+		line-height: 50px;
+	}
+	#navbarTop>li a{
+		color:white;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	#sidenavBar #sidenav_menu{
+		width:100%;
+		padding:0;
+		margin:0 auto;
+		text-align: left;
+	}
+	#sidenavBar #sidenav_menu>li{
+		width:100%;
+		padding:15px;
+		
+		border-bottom:1px solid black;
+	} 
+	.sidenav>#navbarTop>.closebtn {
+		width:20px;
+		color:white;
+	    font-size: 36px;
+	    background: green;
+		margin-left:70px;
+	}
+	.dropdown_menu{
+		display:none;
+		width:100%;
+	}
+	#sidenavBar>#sidenav_menu>li:hover>.dropdown_menu{
+		display:block;
+	}
+	
+	#sidenavBar>#sidenav_menu>li>.dropdown_menu li{
+		padding-left:30px;
+	}
+	/* 퀵메뉴 */
+	#quickMenu{
+		width:115px;
+		position:fixed;
+		top:54px;
+		right:5px;
+		z-index:8;
+	}
+	#quickMenu .qmenu{
+		width:110px;
+		height:38px;
+		border-radius:4px;
+		margin:0 auto;
+		text-align: center;
+		margin-bottom:5px;
+		background: #7F6C63;
+		opacity: 0.9;
+	}
+	#quickMenu .qmenu a{
+		line-height: 38px;
+		color:white;
+		font-size: 15px;
+	}
+}
+
+
+
+
+
+
+

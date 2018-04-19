@@ -7,14 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <style type="text/css">
 	#container{
 		width:70%;
 		margin:0 auto;
-		margin-top:100px;
+		margin-top:300px;
 	}
 	#container #btnRegister{
 		width:100px;
@@ -40,6 +40,10 @@
 		text-align: center;
 		border:1px solid black;
 	}
+	#tbl tr td:nth-child(2){
+		padding-left:10px;
+		text-align: left;
+	}
 	#container #tbl tr #bno{
 		width:60px;
 	}
@@ -49,6 +53,21 @@
 	a{
 		color:black;
 		text-decoration: none;
+	}
+	#pageDiv{
+		width:60%;
+		margin:0 auto;
+		margin-top:30px;
+	}
+	#pageDiv .pagination{
+		width:100%;
+		margin:0 auto;
+		text-align: center;
+	}
+	#pageDiv .pagination li{
+		width:20px;
+		margin:0 auto;
+		border:1px solid black;
 	}
 </style>
 <script type="text/javascript">
@@ -67,6 +86,7 @@
 </script>
 </head>
 <body>
+	<jsp:include page="include/header.jsp"></jsp:include>
 	<div id="container">
 		<div class="box-body">
 			<select name="searchType">
@@ -79,18 +99,10 @@
 			<button id="searchBtn">Search</button>
 		</div>
 		<div id="btnRegister">
-			<%-- <c:if test="${ }"> --%>
-			<a href="#"><img style="width:80px;" src="${pageContext.request.contextPath}/resources/images/person.png" alt="로그인"><br>로그인</a><br>
+			<%-- <a href="#"><img style="width:80px;" src="${pageContext.request.contextPath}/resources/images/person.png" alt="로그인"><br>로그인</a><br> --%>
 			<a href="register"><input type="button" value="글쓰기"></a>
 		</div>
 		<div id="bList">
-			<div id="insertPW">
-				<table>
-					<tr>
-						<th>비밀번호 입력:</th>
-					</tr>
-				</table>		
-			</div>
 			<table id="tbl">
 				<tr>
 					<th id="bno">번호</th>
@@ -105,9 +117,11 @@
 						<td>
 							<input type="hidden" class="pwtype" value="${item.pwtype}">
 							<input type="hidden" class="pw" value="${item.pw}">
-							<a href="read/${item.bno}/1">${item.btitle}</a>
-							&nbsp;<b>[${item.replycnt}]</b>&nbsp;
 							<c:if test="${item.pwtype =='o'}"><img width='18' src="${pageContext.request.contextPath}/resources/images/pw.png"></c:if>
+							<%-- <a href="read/${item.bno}/1">${item.btitle}</a> --%>
+							&nbsp;<a href="pwcheck/${item.bno}">${item.btitle}</a>
+							&nbsp;<b>[${item.replycnt}]</b>&nbsp;
+							
 						</td>
 						<td>${item.bwriter}</td>
 						<td><fmt:formatDate type="date" value="${item.regdate}"/></td>

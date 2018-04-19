@@ -10,6 +10,7 @@ public interface BoardService {
 	public BoardVO selectOne(int bno);
 	public void insert(BoardVO vo);
 	public void update(BoardVO vo);
+	public void updateCnt(int bno);
 	public void delete(int bno);
 	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
 	public int listSearchCount(SearchCriteria cri) throws Exception;

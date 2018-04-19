@@ -22,7 +22,6 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public BoardVO selectOne(int bno) {
-		dao.updateCnt(bno);
 		return dao.selectOne(bno);
 	}
 
@@ -34,6 +33,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void update(BoardVO vo) {
 		dao.update(vo);
+	}
+	
+	@Override
+	public void updateCnt(int bno) {
+		dao.updateCnt(bno);
 	}
 
 	@Override
@@ -50,6 +54,8 @@ public class BoardServiceImpl implements BoardService{
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
 	}
+
+	
 
 	
 	
