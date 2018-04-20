@@ -202,6 +202,18 @@ public class BoardController {
 		return "redirect:/";
 	}
 
+	@RequestMapping("/login")
+	public String loginGet(){
+		logger.info("loginGet");
+		
+		return "login";
+	}
 	
+	@RequestMapping(value="manager2", method=RequestMethod.GET)
+	public String managerGet(){
+		logger.info("managerGet");
+		
+		return "manager";
+	}
 
 }

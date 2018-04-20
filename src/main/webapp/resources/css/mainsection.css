@@ -1,9 +1,13 @@
 @CHARSET "UTF-8";
 /* 메인 슬라이더 */
+#mainWrapper{
+	width:100%;
+	margin-top:20px;
+	position:relative;
+}
 #mainSlider{
 	width:100%;
 	min-height:392px;
-	margin-top:20px;
 }
 #mainSlider h3, #mainSlider h3 img{
 	width:100%;

@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css?ver=1">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/header.css?ver=5"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>        
 <style type="text/css">
 	
 </style> 
@@ -25,7 +25,7 @@
 	<div id="headerWrap">
 		<div id="headerMenu1">
 		    <ul class="nav">
-		      <li class="main"><a href="#">서부 스마트치과</a>
+		      <li class="main"><a href="http://test7425.cafe24.com">서부 스마트치과</a>
 		      	<ul class="dropdown_menu">
 		          <li><a href="#">스마트치과 특별함</a></li>
 		          <li><a href="#">미션·비전</a></li>
@@ -58,7 +58,7 @@
 		          <li><a href="#">언론속의 스마트</a></li>
 		        </ul>
 		      </li>
-		      <li class="icon"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/icon_profile.png"></a></li>
+		      <li class="icon"><a href="login"><img src="${pageContext.request.contextPath}/resources/images/icon_profile.png"></a></li>
 		      <li class="icon"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/icon_search.png"></a></li>
 		    </ul> 
 		</div>

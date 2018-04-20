@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script type="text/javascript">
 	$.noConflict();
-	
+	alert(document.referrer);
 	var j=jQuery;
 	j(function(){
 		j(".single-item").slick({
@@ -28,17 +29,30 @@
 			autoplaySpeed:2000,
 			arrows:true
 		});
+		j(document).on("click",".btnClose",function(){
+			j(this).parent().remove();
+		});
 	});
 </script> 
 </head>
 <body> 
 	<jsp:include page="include/header.jsp"></jsp:include>
-	<div id="mainSlider" class="slider single-item">
-		<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide1.png"></h3>
-		<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide2.png"></h3>
-		<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide3.png"></h3>
-		<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide4.png"></h3>
-		<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide5.png"></h3>
+	<div id="mainWrapper">
+		<c:if test="${popupList != null}">
+			<c:forEach var="item" items="${popupList}">
+				<div style="width:${item.width}px; height:${item.height}px; margin-top:100px; position:absolute; top:${item.positiontop}px; left:${item.positionleft}px; z-index:20; background:white;">
+					${item.content}
+					<p class="btnClose" style="background:gray; margin:0; padding:0;"><button>[닫기]</button></p>
+				</div>
+			</c:forEach>
+		</c:if>
+		<div id="mainSlider" class="slider single-item">
+			<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide1.png"></h3>
+			<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide2.png"></h3>
+			<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide3.png"></h3>
+			<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide4.png"></h3>  
+			<h3><img src="${pageContext.request.contextPath}/resources/images/mainslide5.png"></h3>
+		</div>
 	</div>
 	<div id="mainsection1">
 		<div id="mainsection1_title">
