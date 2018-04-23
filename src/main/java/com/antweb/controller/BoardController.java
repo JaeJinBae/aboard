@@ -2,6 +2,7 @@ package com.antweb.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -127,7 +128,27 @@ public class BoardController {
 		// 업로드한 파일 이름
 		String fileName = upload.getOriginalFilename();
 
-		// ==================================================================================================================================
+		//바이트 배열로 변환
+		byte[] bytes=upload.getBytes();
+		
+		//이미지를 업로드할 디렉토리(배포경로로 설정)
+		String innerUploadPath="resources/upload/";
+		String uploadPath= (req.getSession().getServletContext().getRealPath("/"))+ innerUploadPath;
+		logger.info(uploadPath);
+		
+		out=new FileOutputStream(new File(uploadPath+fileName));//서버에 파일 저장
+		//서버에 저장됨
+		out.write(bytes);
+
+		String fileUrl="/"+innerUploadPath+fileName;
+
+		System.out.println(fileUrl);
+		
+		map.put("uploaded", 1);
+		map.put("fileName", fileName);
+		map.put("url", fileUrl);
+		
+		/*// 외부 ftp접속해서 파일 업로드==================================================================================================================================
 		String serverIp = "112.175.85.200";//호스트 주소(ex. http://아이디.iud.cdn3.cafe24.com)
 		int serverPort = 21;//포트번호
 		String user = "test7425";//ftp아이디
@@ -166,7 +187,7 @@ public class BoardController {
 
 		map.put("uploaded", 1);
 		map.put("fileName", fileName);
-		map.put("url", "http://test7425.cdn3.cafe24.com/"+fileName);
+		map.put("url", "http://test7425.cdn3.cafe24.com/"+fileName);*/
 
 		return map;
 	}
